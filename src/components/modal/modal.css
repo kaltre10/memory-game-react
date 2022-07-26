@@ -94,11 +94,8 @@
     .modal-score {
         padding: 0 20px;
     }
-    .modal .card{
-        max-width: 30px;
-        max-height: 30px;
-    }
     .modal-body{
-        margin: 0 20px;
+        margin: 0;
+        gap: 1px;
     }
 }
