@@ -11,6 +11,7 @@ const Card = ({data, par, setPar, matches, setMatches, picture}) => {
             comparePar();
             setMatches(matches + 1)
         }
+        closeFlip();
     }, [par]);
 
     const closeFlip = () => {
@@ -20,24 +21,18 @@ const Card = ({data, par, setPar, matches, setMatches, picture}) => {
     }
 
     const comparePar = () => {
-        
             const time = setTimeout(() => {
                 if(par.par1.name != par.par2.name) {
                     if(par.par1.id == data.id || par.par2.id == data.id){
                         data.status = false;
                     }
                 }
-                // if(par.par1.name === par.par2.name){
-                    
-                // }
                 setPar({ 
                     par1: { id: null, status: false, name: ''},
                     par2: { id: null, status: false, name: ''}
                 });
                 closeFlip();
             }, 1500);
-            
-        
     }
 
     const handleClick = () => {

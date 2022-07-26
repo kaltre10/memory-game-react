@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './modal.css';
 import Card from '../card/Card';
 import bitcoin from '../../assets/crypto/bitcoin.png';
@@ -9,20 +9,46 @@ import dogecoin from '../../assets/crypto/dogecoin.png';
 import binance from '../../assets/crypto/binance.png';
 import matic from '../../assets/crypto/matic.png';
 import tron from '../../assets/crypto/tron.png';
+import data from '../../../data';
 
 const Modal = ({setModal, cards}) => {
-
     const [ par, setPar ] = useState({ 
         par1: {id : null, status: false, name: ''},
         par2: {id: null, status: false, name: ''}
     });
-    const [dataCards, setDataCards] = useState(cards);
+    const [dataCards, setDataCards] = useState([]);
 
     const [ matches, setMatches] = useState(0);
 
-    const handleEnd = () => {
-        //...
+    useEffect(() => {
+        reset();
+    }, []);
+
+    const handleEnd = async () => {
+        setMatches(0);
+        reset();
     }  
+
+    const rand = (max, min) =>  Math.random() * (max - min) + min;
+
+    const reset = () => { 
+        let dataArray = [];
+        data.map( d => {
+            //la propiedad status a false
+            d.status = false;
+            let numRand = Math.round(rand(1, 16));  
+            if(dataArray.length === 16) return;
+            while(dataArray.map(card => card.id).includes(numRand)){
+                numRand = Math.round(rand(1, 16));
+            }
+            dataArray.push(data[numRand - 1]);
+        })
+        setDataCards(dataArray);
+        setPar({ 
+            par1: {id : null, status: false, name: ''},
+            par2: {id: null, status: false, name: ''}
+        });
+      }
 
     const crypto = {
         'bitcoin': { name: bitcoin },
@@ -57,7 +83,7 @@ const Modal = ({setModal, cards}) => {
                     <button onClick={() => handleEnd()}>
                         Reiniciar Juego
                     </button>
-                    <button onClick={ () => setModal(false)}>
+                    <button onClick={ () => { handleEnd(); setModal(false); }}>
                         Terminar Juego
                     </button>
                 </div>

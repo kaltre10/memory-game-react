@@ -8,26 +8,26 @@ function App() {
 
   const [ modal, setModal ] = useState(false);
  
-  const rand = (max, min) =>  Math.random() * (max - min) + min;
-  const cards = [];
+  // const rand = (max, min) =>  Math.random() * (max - min) + min;
+  // const cards = [];
 
-  const init = () => {  
-    data.forEach( () => {
-      let numRand = Math.round(rand(1, 15));
-      while(cards.length > 1 && cards.map(card => card.id).includes(numRand)){
-          numRand = Math.round(rand(1, 16));
-      }
-      cards.push( data[numRand - 1]);
-    })
-  }
-  init();
+  // const init = () => {  
+  //   data.forEach( () => {
+  //     let numRand = Math.round(rand(1, 16));
+  //     while(cards.map(card => card.id).includes(numRand)){
+  //         numRand = Math.round(rand(1, 16));
+  //     }
+  //     cards.push( data[numRand - 1]);
+  //   })
+  // }
+  // init();
  
 
   return (
     <div className="App">
       {modal 
         ? 
-          <Modal setModal={setModal} cards={cards} init={init}/>
+          <Modal setModal={setModal}/>
         :
           (<>
             <div>
